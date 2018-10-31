@@ -40,6 +40,21 @@ module.exports = function(app) {
         });
     });
 
+    // POST route for creating products
+    app.post('/api/product', (req, res) => {
+        const product_name = req.body.product_name;
+        const department_name = req.body.department_name;
+        const price = req.body.price;
+        const stock_quantity = req.body.stock_quantity;
+        db.Product.create({
+            product_name: product_name,
+            department_name: department_name,
+            price: price,
+            stock_quantity: stock_quantity
+        }).then(Product => {
+            res.json(Product);
+        });
+    });
 
     // DELETE route for deleting products
     app.delete('/api/product/:id', function(req, res) {

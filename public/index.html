@@ -10,95 +10,26 @@
     <title>Bamazon App</title>
 </head>
 
-<body class="bg-light">
+<body>
     <div class="container">
         <header class="jumbotron text-center bg-info">
             <h1 class="display-4">Welcome to Bamazon</h1>
         </header>
+
         <table class="table text-center">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
                     <th scope="col">Product Name</th>
                     <th scope="col">Department Name</th>
                     <th scope="col">Price</th>
                     <th scope="col">Stock Quantity</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <!-- Computers -->
-                    <td><img src="https://picsum.photos/100/100?image=668" alt=""></td>
-                    <td>Electronics</td>
-                    <td>990</td>
-                    <td id="p1">1500</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>GPS Radios</td>
-                    <td>Electronics</td>
-                    <td>250</td>
-                    <td id="p2">250</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Plasma TV</td>
-                    <td>Electronics</td>
-                    <td>1200</td>
-                    <td id="p3">180</td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td>PS4</td>
-                    <td>Electronics</td>
-                    <td>299</td>
-                    <td id="p4">190</td>
-                </tr>
-                <tr>
-                    <th scope="row">5</th>
-                    <td>The Shining</td>
-                    <td>Books</td>
-                    <td>11</td>
-                    <td id="p5">1000</td>
-                </tr>
-                <tr>
-                    <th scope="row">6</th>
-                    <td>Java Programming</td>
-                    <td>Books</td>
-                    <td>16</td>
-                    <td id="p6">1000</td>
-                </tr>
-                <tr>
-                    <th scope="row">7</th>
-                    <td>Education 101</td>
-                    <td>Books</td>
-                    <td>15</td>
-                    <td id="p7">200</td>
-                </tr>
-                <tr>
-                    <th scope="row">8</th>
-                    <td>Layo T Shirts</td>
-                    <td>Clothing</td>
-                    <td>14</td>
-                    <td id="p8">2000</td>
-                </tr>
-                <tr>
-                    <th scope="row">9</th>
-                    <td>Fubu Cap</td>
-                    <td>Clothing</td>
-                    <td>9</td>
-                    <td id="p9">600</td>
-                </tr>
-                <tr>
-                    <th scope="row">10</th>
-                    <td>Wrangler Jeans</td>
-                    <td>Clothing</td>
-                    <td>20</td>
-                    <td id="p10">460</td>
-                </tr>
+            <tbody id="show">
             </tbody>
         </table>
+
+
         <p class="text-center">What would you like to buy today? Enter the ID and quantity</p>
         <form>
             <div class="form-group">
@@ -132,6 +63,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Insufficient Data Modal -->
         <div class="modal fade" id="insufficientQuantity" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -173,6 +105,22 @@
                 </div>
             </div>
         </div>
+        <br><br><br><br><br><br>
+        <form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="email" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter username (email)">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
 
 
         <footer class="row bg-info text-center">

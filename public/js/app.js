@@ -10,6 +10,20 @@ const id8 = 14;
 const id9 = 9;
 const id10 = 20;
 
+const displayAll = function() {
+        $.ajax({
+            url: `api/product`,
+            method: 'GET'
+        }).then(function(result) {
+            console.log(result);
+            for (let i = 0; i < 10; i++) {
+                $('#show').append('<tr><td>' + result[i].product_name + '</td><td>' + result[i].department_name + '</td><td>' + result[i].price + '</td><td>' + result[i].stock_quantity + '</td></tr>');
+            }
+        })
+    }
+    ///timer to call yourself again or refresh the page
+displayAll(); //may have to be called more times
+
 
 //function for ordering goods
 const placeOrder = function() {
@@ -42,17 +56,18 @@ const placeOrder = function() {
     }
     //assigning the value of totalPrice to the given id
     document.getElementById('totalPrice').innerText = totalPrice;
+
     //ajax call to get the stock quantity of given id
     $.ajax({
         url: `/api/product/${id}`,
         method: 'GET'
     }).then(function(response) {
-        let newQ = response.stock_quantity - quantity;
-        console.log(newQ);
+        let newQuantity = response.stock_quantity - quantity;
+        console.log(newQuantity);
 
-        if (newQ >= 0) {
+        if (newQuantity >= 0) {
             let data = {
-                    stock_quantity: newQ
+                    stock_quantity: newQuantity
                 }
                 //ajax call to post updated value
             $.ajax({
@@ -72,16 +87,33 @@ const placeOrder = function() {
             $('#quantity').val('');
             $('#insufficientQuantity').modal();
         }
-
     });
-
 }
 
-
+//thank you function
 const thankYou = function() {
     $('#thankYou').modal();
 }
 
-
+//click function to place order
 $('#placeOrder').on('click', placeOrder);
+
+//click function to thank customer
 $('#checkout').on('click', thankYou);
+
+
+const addMore = function() {
+
+
+
+}
+
+//  List a set of menu options:
+//     View Products for Sale
+//     View Low Inventory
+//     Add to Inventory
+//     Add New Product
+// If a manager selects`View Products for Sale`, the page should list every available item: the item IDs, names, prices, and quantities.
+// If a manager selects`View Low Inventory`, then it should list all items with an inventory count lower than five.
+// If a manager selects`Add to Inventory`, your app should display an input that will let the manager "add more" of any item currently in the store.
+// If a manager selects`Add New Product`, it should allow the manager to add a completely new product to the store.
