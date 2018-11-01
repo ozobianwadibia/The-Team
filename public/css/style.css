@@ -1,3 +1,7 @@
-footer {
-    margin-top: 4rem;
+/* body {
+    background-color: yellow;
+} */
+
+.managerAccess {
+    display: none;
 }

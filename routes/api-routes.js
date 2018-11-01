@@ -63,7 +63,6 @@ module.exports = function(app) {
                 id: req.params.id
             }
         }).then(function(dbProduct) {
-
             res.json(dbProduct);
         }).catch(function(error) {
             res.json({ error: error });

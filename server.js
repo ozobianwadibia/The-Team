@@ -18,17 +18,14 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Routes
-// =============================================================
 require('./routes/html-routes.js')(app);
 require('./routes/api-routes.js')(app);
 
-// Database Information 
-// =============================================================
-require('./seeds/seed-bamazon_db.js');
+// Database Information - called once!
+// require('./seeds/seed-bamazon_db.js');
 
 // Syncing our sequelize models and then starting our Express app
 //{force:true}
-// =============================================================
 db.sequelize.sync().then(function() {
     app.listen(PORT, function() {
         console.log('App listening on PORT ' + PORT);
