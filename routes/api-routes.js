@@ -27,7 +27,6 @@ module.exports = function(app) {
 
     // PUT route for updating products
     app.put('/api/product/:id', function(req, res) {
-
         db.Product.update(
             req.body, {
                 where: {

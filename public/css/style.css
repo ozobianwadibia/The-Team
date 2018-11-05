@@ -1,7 +1,11 @@
-/* body {
-    background-color: yellow;
-} */
+body {
+    background-color: white;
+    /* Used if the image is unavailable */
+    font-family: 'Raleway', sans-serif;
+}
 
-.managerAccess {
-    display: none;
+footer {
+    color: black;
+    /* change background later */
+    background-color: linen;
 }

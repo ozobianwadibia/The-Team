@@ -1,38 +1,58 @@
+//FUNCTION to display all team members
 const displayAll = function() {
-        $.ajax({
-            url: `api/product/`,
-            method: 'GET'
-        }).then(function(result) {
-            console.log(result);
-            for (let i = 0; i < result.length; i++) {
-                $('#show').append('<tr><td>' + result[i].id + '</td><td>' + result[i].product_name + '</td><td>' + result[i].department_name + '</td><td>' + result[i].price + '</td><td>' + result[i].stock_quantity + '</td></tr>');
-            }
-        });
-    }
-    ///timer to call yourself again or refresh the page
-displayAll(); //may have to be called more times
+    $('#show').empty();
+    $.ajax({
+        url: `api/product/`,
+        method: 'GET'
+    }).then(function(result) {
+        console.log(result);
+        for (let i = 0; i < result.length; i++) {
+            $('#show').append('<tr><td>' + result[i].id + '</td><td>' + result[i].product_name + '</td><td>' + result[i].department_name + '</td><td>' + result[i].price + '</td><td>' + result[i].stock_quantity + '</td></tr>');
+        }
+    });
+}
+displayAll();
+
+//FUNCTION to refresh the DOM 
+const refreshDOM = function() {
+    location.reload();
+}
 
 
-//function for ordering goods
+//--------------------------------------
+//consider the use for this new function
+//--------------------------------------
+const displayOne = function() {
+    $.ajax({
+        url: `api/product/${id}`,
+        method: 'GET'
+    }).then(function(result) {
+        console.log(result);
+        $('#show').append('<tr><td>' + result.id + '</td><td>' + result.product_name + '</td><td>' + result.department_name + '</td><td>' + result.price + '</td><td>' + result.stock_quantity + '</td></tr>');
+    });
+}
+
+
+
+
+//FUNCTION for ordering goods
 const placeOrder = function() {
     let id = $('#id').val();
     let quantity = $('#quantity').val();
     let totalPrice = 0;
     // if ((id && quantity) || (id > 0 && quantity > 0)) 
     //AJAX call to get the total price of an item that is purchased
-    $.ajax({
-        url: `/api/product/${id}`,
-        method: 'GET'
-    }).then(function(result) {
-        totalPrice += result.stock_quantity * result.price;
-        document.getElementById('totalPrice').innerText = totalPrice;
-    })
 
     //AJAX call to get the stock quantity of given id
     $.ajax({
         url: `/api/product/${id}`,
         method: 'GET'
     }).then(function(response) {
+        console.log(response);
+        totalPrice += response.price * quantity;
+        console.log(quantity);
+        document.getElementById('totalPrice').innerText = totalPrice;
+        console.log(totalPrice);
         let newQuantity = response.stock_quantity - quantity;
         console.log(newQuantity);
 
@@ -49,14 +69,16 @@ const placeOrder = function() {
                 // return data;
                 console.log(data);
             });
-
+            refreshDOM();
             $('#id').val('');
             $('#quantity').val('');
-            $('#purchaseMade').modal();
+            // $('#purchaseMade').modal();
+            refreshDOM();
         } else {
             $('#id').val('');
             $('#quantity').val('');
-            $('#insufficientQuantity').modal();
+            // $('#insufficientQuantity').modal();
+            // refreshDOM();
         }
     });
 }
@@ -66,61 +88,111 @@ const thankYou = function() {
     $('#thankYou').modal();
 }
 
-//click function to place order
+//Place Order Function
 $('#placeOrder').on('click', placeOrder);
 
 //click function to thank customer
 $('#checkout').on('click', thankYou);
 
 
+//useful for access to system
+const username = "Admin";
+const password = "Bamazon";
+const manager = function() {
+    let userInput = $('#username').val().trim();
+    let passInput = $('#password').val().trim();
 
-//function to add a brand new product
+    if (userInput !== username && passInput !== password) {
+        alert('Hey');
+    } else {
+        $('.managerAccess').css('display', 'block');
+    }
+}
+
+$('#managerAccess').on('click', manager);
+
+
+//FUNCTION to add a brand new product
 const addProduct = function() {
     let newProduct = $('#productName').val().trim();
     let departmentName = $('#departmentName').val().trim();
     let price = $('#price').val();
     let stockQuantity = $('#stockQuantity').val();
-    const result = {
-        product_name: newProduct,
-        department_name: departmentName,
-        price: price,
-        stock_quantity: stockQuantity
+    if (newProduct && departmentName && price && stockQuantity) {
+        const result = {
+            product_name: newProduct,
+            department_name: departmentName,
+            price: price,
+            stock_quantity: stockQuantity
+        }
+        $.ajax({
+            url: `/api/product`,
+            method: 'POST',
+            data: result
+        }).then(function(result) {
+            console.log(result);
+        });
+        refreshDOM();
+    } else {
+        // UIkit.modal.alert('Please provide an ID');
     }
-    $.ajax({
-        url: `/api/product`,
-        method: 'POST',
-        data: result
-    }).then(function(result) {
-        console.log(result);
-    });
+    // $('#productName').val('');
+    // $('#departmentName').val('');
+    // $('#price').val('');
+    // $('#stockQuantity').val('');
+
+
 }
 
 $('#addProduct').on('click', addProduct);
 
 
-//function to delete a product from the database
+//FUNCTION to delete a product from the database
 const removeProduct = function() {
-    let result = {
-        id: id
-    }
-    $.ajax({
-        url: `/api/product/${id}`,
-        method: 'DELETE'
-    }).then(function(result) {
+    let id = $('#deleteItem').val();
+    if (id) {
+        $.ajax({
+            url: `/api/product/${id}`,
+            method: 'DELETE'
+        }).then(function(result) {
+            console.log(result);
+        });
+        refreshDOM();
 
-    });
+    } else {
+        // UIkit.modal.alert('Hey man');
+    }
+
 }
 
+$('#delete').on('click', removeProduct);
 
+//FUNCTION to update a product in the database
+const updateFarm = function() {
+    let un = $('#updPdtName').val().trim();
+    let dn = $('#updDeptName').val().trim();
+    let pr = $('#updPrice').val();
+    let sq = $('#updStkQuantity').val();
+    let id = $('#updateInput').val();
 
+    if (id) {
+        let data = {
+            product_name: un,
+            department_name: dn,
+            price: pr,
+            stock_quantity: sq
+        }
+        $.ajax({
+            url: `/api/product/${id}`,
+            method: 'PUT',
+            data: data
+        }).then(function(data) {
+            console.log(data);
+        });
+        refreshDOM();
 
-//  List a set of menu options:
-//     View Products for Sale
-//     View Low Inventory
-//     Add to Inventory
-
-//     Add New Product
-// If a manager selects`View Products for Sale`, the page should list every available item: the item IDs, names, prices, and quantities.
-// If a manager selects`View Low Inventory`, then it should list all items with an inventory count lower than five.
-// If a manager selects`Add to Inventory`, your app should display an input that will let the manager "add more" of any item currently in the store.
-// If a manager selects`Add New Product`, it should allow the manager to add a completely new product to the store.
+    } else {
+        // UIkit.modal.alert('Please provide an ID');
+    }
+}
+$('#update').on('click', updateFarm);
