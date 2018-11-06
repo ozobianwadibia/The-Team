@@ -1,13 +1,39 @@
+//FUNCTION to access system
+const username = "Admin";
+const password = "Team";
+const coachAccess = function() {
+    let userInput = $('#username').val().trim();
+    let passInput = $('#password').val().trim();
+
+    if (userInput === username && passInput === password) {
+        //GET request for team page
+        $.ajax({
+            url: `/team`,
+            method: 'GET'
+        }).then(function(result) {
+            window.location.replace('/team');
+            console.log(result);
+        });
+    } else {
+        alert('Hey');
+    }
+    $('#username').val('');
+    $('#password').val('');
+}
+
+$('#teamCoachAccess').on('click', coachAccess);
+
+
 //FUNCTION to display all team members
 const displayAll = function() {
     $('#show').empty();
     $.ajax({
-        url: `api/product/`,
+        url: `api/player/`,
         method: 'GET'
     }).then(function(result) {
-        console.log(result);
+        // console.log(result);
         for (let i = 0; i < result.length; i++) {
-            $('#show').append('<tr><td>' + result[i].id + '</td><td>' + result[i].product_name + '</td><td>' + result[i].department_name + '</td><td>' + result[i].price + '</td><td>' + result[i].stock_quantity + '</td></tr>');
+            $('#show').append('<tr><td>' + result[i].id + '</td><td>' + result[i].first_name + '</td><td>' + result[i].last_name + '</td><td>' + result[i].age + '</td><td>' + result[i].jersey_number + '</td><td>' + result[i].soccer_club + '</td><td>' + result[i].position_played + '</td></tr>');
         }
     });
 }
@@ -24,175 +50,98 @@ const refreshDOM = function() {
 //--------------------------------------
 const displayOne = function() {
     $.ajax({
-        url: `api/product/${id}`,
+        url: `api/player/${id}`,
         method: 'GET'
     }).then(function(result) {
         console.log(result);
-        $('#show').append('<tr><td>' + result.id + '</td><td>' + result.product_name + '</td><td>' + result.department_name + '</td><td>' + result.price + '</td><td>' + result.stock_quantity + '</td></tr>');
+        $('#show').append('<tr><td>' + result[i].id + '</td><td>' + result[i].first_name + '</td><td>' + result[i].last_name + '</td><td>' + result[i].age + '</td><td>' + result[i].jersey_number + '</td><td>' + result[i].soccer_club + '</td><td>' + result[i].position_played + '</td></tr>');
     });
 }
 
 
 
 
-//FUNCTION for ordering goods
-const placeOrder = function() {
-    let id = $('#id').val();
-    let quantity = $('#quantity').val();
-    let totalPrice = 0;
-    // if ((id && quantity) || (id > 0 && quantity > 0)) 
-    //AJAX call to get the total price of an item that is purchased
 
-    //AJAX call to get the stock quantity of given id
-    $.ajax({
-        url: `/api/product/${id}`,
-        method: 'GET'
-    }).then(function(response) {
-        console.log(response);
-        totalPrice += response.price * quantity;
-        console.log(quantity);
-        document.getElementById('totalPrice').innerText = totalPrice;
-        console.log(totalPrice);
-        let newQuantity = response.stock_quantity - quantity;
-        console.log(newQuantity);
+//FUNCTION to add a brand new player
+const addPlayer = function() {
+    let firstName = $('#firstName').val().trim();
+    let lastName = $('#lastName').val().trim();
+    let age = $('#age').val();
+    let jerseyNumber = $('#jerseyNumber').val();
+    let soccerClub = $('#soccerClub').val().trim();
+    let positionPlayed = $('#positionPlayed').val().trim();
 
-        if (newQuantity >= 0) {
-            let data = {
-                    stock_quantity: newQuantity
-                }
-                //AJAX call to post updated value
-            $.ajax({
-                url: `/api/product/${id}`,
-                method: 'PUT',
-                data: data
-            }).then(function(data) {
-                // return data;
-                console.log(data);
-            });
-            refreshDOM();
-            $('#id').val('');
-            $('#quantity').val('');
-            // $('#purchaseMade').modal();
-            refreshDOM();
-        } else {
-            $('#id').val('');
-            $('#quantity').val('');
-            // $('#insufficientQuantity').modal();
-            // refreshDOM();
-        }
-    });
-}
-
-//thank you function
-const thankYou = function() {
-    $('#thankYou').modal();
-}
-
-//Place Order Function
-$('#placeOrder').on('click', placeOrder);
-
-//click function to thank customer
-$('#checkout').on('click', thankYou);
-
-
-//useful for access to system
-const username = "Admin";
-const password = "Bamazon";
-const manager = function() {
-    let userInput = $('#username').val().trim();
-    let passInput = $('#password').val().trim();
-
-    if (userInput !== username && passInput !== password) {
-        alert('Hey');
-    } else {
-        $('.managerAccess').css('display', 'block');
-    }
-}
-
-$('#managerAccess').on('click', manager);
-
-
-//FUNCTION to add a brand new product
-const addProduct = function() {
-    let newProduct = $('#productName').val().trim();
-    let departmentName = $('#departmentName').val().trim();
-    let price = $('#price').val();
-    let stockQuantity = $('#stockQuantity').val();
-    if (newProduct && departmentName && price && stockQuantity) {
-        const result = {
-            product_name: newProduct,
-            department_name: departmentName,
-            price: price,
-            stock_quantity: stockQuantity
+    if (firstName && lastName && age && jerseyNumber && soccerClub && positionPlayed) {
+        const newPlayer = {
+            first_name: firstName,
+            last_name: lastName,
+            age: age,
+            jersey_number: jerseyNumber,
+            soccer_club: soccerClub,
+            position_played: positionPlayed
         }
         $.ajax({
-            url: `/api/product`,
+            url: `/api/player`,
             method: 'POST',
-            data: result
-        }).then(function(result) {
-            console.log(result);
+            data: newPlayer
+        }).then(function(newPlayer) {
+            console.log(newPlayer);
         });
         refreshDOM();
     } else {
         // UIkit.modal.alert('Please provide an ID');
     }
-    // $('#productName').val('');
-    // $('#departmentName').val('');
-    // $('#price').val('');
-    // $('#stockQuantity').val('');
-
-
 }
 
-$('#addProduct').on('click', addProduct);
+$('#addPlayer').on('click', addPlayer);
 
 
-//FUNCTION to delete a product from the database
-const removeProduct = function() {
-    let id = $('#deleteItem').val();
+//FUNCTION to delete a player from the database
+const deletePlayer = function() {
+    let id = $('#deletePlayer').val();
     if (id) {
         $.ajax({
-            url: `/api/product/${id}`,
+            url: `/api/player/${id}`,
             method: 'DELETE'
         }).then(function(result) {
-            console.log(result);
+            // console.log(result);
         });
         refreshDOM();
 
     } else {
         // UIkit.modal.alert('Hey man');
     }
-
 }
+$('#delete').on('click', deletePlayer);
 
-$('#delete').on('click', removeProduct);
+//FUNCTION to update a player in the database
+const updatePlayer = function() {
+    let newFirstName = $('#updFirstName').val().trim();
+    let newLastName = $('#updLastName').val().trim();
+    let newAge = $('#updAge').val();
+    let newJerseyNumber = $('#updJerseyNumber').val();
+    let newSoccerClub = $('#updSoccerClub').val();
+    let newPositionPlayed = $('#updPositionPlayed').val();
 
-//FUNCTION to update a product in the database
-const updateFarm = function() {
-    let un = $('#updPdtName').val().trim();
-    let dn = $('#updDeptName').val().trim();
-    let pr = $('#updPrice').val();
-    let sq = $('#updStkQuantity').val();
     let id = $('#updateInput').val();
 
     if (id) {
-        let data = {
-            product_name: un,
-            department_name: dn,
-            price: pr,
-            stock_quantity: sq
+        let update = {
+            first_name: newFirstName,
+            last_name: newLastName,
+            age: newAge,
+            jersey_number: newJerseyNumber,
+            soccer_club: newSoccerClub,
+            position_played: newPositionPlayed
         }
         $.ajax({
-            url: `/api/product/${id}`,
+            url: `/api/player/${id}`,
             method: 'PUT',
-            data: data
-        }).then(function(data) {
-            console.log(data);
+            data: update
+        }).then(function(update) {
+            // console.log(update);
         });
         refreshDOM();
-
-    } else {
-        // UIkit.modal.alert('Please provide an ID');
     }
 }
-$('#update').on('click', updateFarm);
+$('#update').on('click', updatePlayer);

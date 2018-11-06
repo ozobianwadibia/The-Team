@@ -22,7 +22,7 @@ require('./routes/html-routes.js')(app);
 require('./routes/api-routes.js')(app);
 
 // Database Information - called once!
-// require('./seeds/seed-bamazon_db.js');
+// require('./seeds/seed_SoccerTeamUSA_db.js');
 
 // Syncing our sequelize models and then starting our Express app
 //{force:true}

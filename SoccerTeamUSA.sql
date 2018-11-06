@@ -1,0 +1,9 @@
+
+DROP DATABASE IF EXISTS soccerTeamUSA_db;
+
+CREATE DATABASE soccerTeamUSA_db;
+
+
+
+
+

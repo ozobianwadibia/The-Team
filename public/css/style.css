@@ -1,11 +1,37 @@
+
+/* main styling for the body */
 body {
     background-color: white;
-    /* Used if the image is unavailable */
     font-family: 'Raleway', sans-serif;
 }
 
+/* styling for the menu buttons */
+.menu {
+    display: block;
+    margin: 1.2rem;
+    width: 10rem;
+    background-color: black;
+    color: white;
+    border: 0.0625rem solid white;
+    border-radius: 0.25rem;
+}
+/* buttons on hove */
+.menu:hover {
+    background-color: white;
+    color: black;
+    border: 0.0625rem solid black;
+    font-weight: bolder;
+}
+
+.nav{
+    background-color: black;
+    color: white;
+    opacity: 1;
+}
+
+
+/* footer styling */
 footer {
     color: black;
-    /* change background later */
     background-color: linen;
 }

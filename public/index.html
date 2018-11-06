@@ -12,228 +12,31 @@
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 
-    <title>Botanica App</title>
+    <title>Team Management App</title>
 </head>
 
 <body>
     <div class="uk-container">
         <div class="uk-grid">
-            <div class="uk-width-1-1">
-                <header>
-                    <h1 class="uk-text-center uk-primary-heading">Welcome to Zoolander</h1>
-                </header>
-            </div>
-        </div>
-        <div class="grid">
-            <div class="uk-width-1-1">
-                <table id="table" class="uk-table uk-table-divider uk-table-responsive">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Product Name</th>
-                            <th>Department Name</th>
-                            <th>Price</th>
-                            <th>Stock Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody id="show">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <h3>What would you like to buy today? Enter the ID and quantity</h3>
-        <!-- Think about using grid for the forms -->
-        <form class="uk-form">
-            <div class="uk-margin">
-                <label class="uk-form-label" for="id">Product I.D.</label>
-                <div class="uk-form-controls">
-                    <input class="uk-input" id="id" type="number" min="1" placeholder="Enter Product ID">
-                </div>
-            </div>
-            <div class="uk-margin">
-                <label class="uk-form-label" for="quantity">Quantity Desired</label>
-                <div class="uk-form-controls">
-                    <input class="uk-input" id="quantity" type="number" min="1" placeholder="Enter Quantity desired">
-                </div>
-            </div>
-            <button class="uk-button uk-button-primary" id="placeOrder">Place Order</button>
-        </form>
-
-        <h2 id="totalPrice"></h2>
-
-        <h3>Manager Access</h3>
-        <!-- Think about using grid for the forms -->
-        <form class="uk-form-stacked">
-            <div class="uk-margin">
-                <label class="uk-form-label" for="username">Username</label>
-                <div class="uk-form-controls">
-                    <input class="uk-input" id="username" type="text" placeholder="Enter Username">
-                </div>
-            </div>
-            <div class="uk-margin">
-                <label class="uk-form-label" for="password">Password</label>
-                <div class="uk-form-controls">
-                    <input class="uk-input" id="password" type="text" placeholder="Enter Password">
-                </div>
-            </div>
-            <button class="uk-width-1-1 uk-button uk-button-primary" id="managerAccess">Login</button>
-        </form>
-
-        <!-- HERE BEGINS THE UIKIT MODALS FOR VARIOUS FUNCTIONS -->
-        <!-- standalone - merge with the rest later -->
-        <button onclick="displayAll()" class="uk-button uk-button-success" type="button">Display Team</button>
-        <button onclick="displayOne()" class="uk-button uk-button-success" type="button">Display One Only</button>
-        <!-- merge with the rest later -->
-
-        <!-- MODALS ARE GOING TO BE PLACED HERE -->
-        <!-- DELETE MODAL -->
-        <button class="uk-button uk-button-danger uk-margin-small-right" type="button" uk-toggle="target: #delete">Delete</button>
-        <div id="delete" uk-modal>
-            <div class="uk-modal-dialog">
-                <button class="uk-modal-close-default" type="button" uk-close></button>
-                <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">Delete An Item</h2>
-                </div>
-                <div class="uk-modal-body">
-                    <fieldset>
-                        <legend>Delete</legend>
-                        <form class="uk-form">
-                            <div class="uk-margin">
-                                <label class="uk-form-label" for="deleteItem">Delete</label>
-                                <div class="uk-form-controls">
-                                    <input class="uk-input" id="deleteItem" type="number" placeholder="Enter ID to be deleted">
-                                </div>
-                            </div>
-                        </form>
-                    </fieldset>
-                </div>
-                <div class="uk-modal-footer uk-text-right">
-                    <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                    <button class="uk-button uk-button-danger" type="button" id="delete">Delete</button>
-                </div>
-            </div>
-        </div>
-        <!-- UPDATE MODAL -->
-        <button class="uk-button uk-button-primary uk-margin-small-right" type="button" uk-toggle="target: #update">Update</button>
-        <div id="update" uk-modal>
-            <div class="uk-modal-dialog">
-                <button class="uk-modal-close-default" type="button" uk-close></button>
-                <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">Update An Item</h2>
-                </div>
-                <div class="uk-modal-body">
-                    <fieldset>
-                        <legend>Update</legend>
-                        <div class="uk-margin">
-                            <label class="uk-form-label" for="updateInput">Update</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-input" id="updateInput" type="number" placeholder="Enter ID to be updated">
-                            </div>
+            <div class="uk-width-1-2 uk-position-center">
+                <h3 class="uk-text-center">Team Coach Access</h3>
+                <form class="uk-form-stacked">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="username">Username</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="username" type="text" placeholder="Enter Username">
                         </div>
-                        <form class="uk-form-stacked">
-                            <div class="uk-margin">
-                                <label class="uk-form-label" for="updPdtName">Product Name</label>
-                                <div class="uk-form-controls">
-                                    <input class="uk-input" id="updPdtName" type="text" placeholder="Enter Product Name">
-                                </div>
-                            </div>
-                            <div class="uk-margin">
-                                <label class="uk-form-label" for="updDeptName">Department Name</label>
-                                <div class="uk-form-controls">
-                                    <input class="uk-input" id="updDeptName" type="text" placeholder="Enter Department Name">
-                                </div>
-                            </div>
-                            <div class="uk-margin">
-                                <label class="uk-form-label" for="updPrice">Price</label>
-                                <div class="uk-form-controls">
-                                    <input class="uk-input" id="updPrice" type="number" placeholder="Enter Price">
-                                </div>
-                            </div>
-                            <div class="uk-margin">
-                                <label class="uk-form-label" for="updStkQuantity">Stock Quantity</label>
-                                <div class="uk-form-controls">
-                                    <input class="uk-input" id="updStkQuantity" type="number" placeholder="Enter Stock Quantity">
-                                </div>
-                            </div>
-                        </form>
-                    </fieldset>
-                </div>
-                <div class="uk-modal-footer uk-text-right">
-                    <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                    <button class="uk-button uk-button-secondary" type="button" id="update">Save</button>
-
-                </div>
+                    </div>
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="password">Password</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="password" type="password" placeholder="Enter Password">
+                        </div>
+                    </div>
+                    <button class="uk-width-1-1 uk-button uk-button-primary" id="teamCoachAccess">Login</button>
+                </form>
             </div>
         </div>
-        <!-- ADD MODAL -->
-        <button class="uk-button uk-button-secondary uk-margin-small-right" type="button" uk-toggle="target: #add">Add</button>
-        <div id="add" uk-modal>
-            <div class="uk-modal-dialog">
-                <button class="uk-modal-close-default" type="button" uk-close></button>
-                <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">Add An Item</h2>
-                </div>
-                <div class="uk-modal-body">
-                    <fieldset>
-                        <legend>Add</legend>
-                        <form class="uk-form-stacked">
-                            <div class="uk-margin">
-                                <label class="uk-form-label" for="productName">Product Name</label>
-                                <div class="uk-form-controls">
-                                    <input class="uk-input" id="productName" type="text" placeholder="Enter Product Name">
-                                </div>
-                            </div>
-                            <div class="uk-margin">
-                                <label class="uk-form-label" for="departmentName">Department Name</label>
-                                <div class="uk-form-controls">
-                                    <input class="uk-input" id="departmentName" type="text" placeholder="Enter Department Name">
-                                </div>
-                            </div>
-                            <div class="uk-margin">
-                                <label class="uk-form-label" for="price">Price</label>
-                                <div class="uk-form-controls">
-                                    <input class="uk-input" id="price" type="number" placeholder="Enter Price">
-                                </div>
-                            </div>
-                            <div class="uk-margin">
-                                <label class="uk-form-label" for="stockQuantity">Stock Quantity</label>
-                                <div class="uk-form-controls">
-                                    <input class="uk-input" id="stockQuantity" type="number" placeholder="Enter Stock Quantity">
-                                </div>
-                            </div>
-                        </form>
-                    </fieldset>
-                </div>
-                <div class="uk-modal-footer uk-text-right">
-                    <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                    <button class="uk-button uk-button-secondary" type="button" id="addProduct">Add More</button>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- *************************************************** -->
-        <!-- USE THIS LAYOUT FOR OPENING THE MODALS -->
-        <div class="uk-button-group">
-            <button class="uk-button uk-button-danger">Maybe</button>
-            <button class="uk-button uk-button-primary">Yes</button>
-            <button class="uk-button uk-button-secondary">No</button>
-            <button class="uk-button uk-button-default">Sometimes</button>
-        </div>
-
-
-
-
-        <footer class="uk-container uk-text-center uk-background-danger uk-padding">
-            <div class="uk-grid">
-                <div class="uk-width-1-1">
-                    <p>&copy; Zoolander 2018</p>
-                </div>
-            </div>
-        </footer>
-
     </div>
     <script src="./js/jquery.js"></script>
     <script src="./UIkit/js/uikit.min.js"></script>
