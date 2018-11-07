@@ -12,10 +12,10 @@ const coachAccess = function() {
             method: 'GET'
         }).then(function(result) {
             window.location.replace('/team');
-            console.log(result);
+            // console.log(result);
         });
     } else {
-        alert('Hey');
+        UIkit.modal.alert('One or more fields is missing or incorrect!');
     }
     $('#username').val('');
     $('#password').val('');
@@ -26,17 +26,24 @@ $('#teamCoachAccess').on('click', coachAccess);
 
 //FUNCTION to display all team members
 const displayAll = function() {
-    $('#show').empty();
-    $.ajax({
-        url: `api/player/`,
-        method: 'GET'
-    }).then(function(result) {
-        // console.log(result);
-        for (let i = 0; i < result.length; i++) {
-            $('#show').append('<tr><td>' + result[i].id + '</td><td>' + result[i].first_name + '</td><td>' + result[i].last_name + '</td><td>' + result[i].age + '</td><td>' + result[i].jersey_number + '</td><td>' + result[i].soccer_club + '</td><td>' + result[i].position_played + '</td></tr>');
-        }
-    });
-}
+        $('#show').empty();
+        $.ajax({
+            url: `api/player/`,
+            method: 'GET'
+        }).then(function(result) {
+            // console.log(result);
+            for (let i = 0; i < result.length; i++) {
+                $('#show').append('<tr><td>' + result[i].id + '</td><td>' +
+                    result[i].first_name + '</td><td>' +
+                    result[i].last_name + '</td><td>' +
+                    result[i].age + '</td><td>' +
+                    result[i].jersey_number + '</td><td>' +
+                    result[i].soccer_club + '</td><td>' +
+                    result[i].position_played + '</td></tr>');
+            }
+        });
+    }
+    // calling the above function
 displayAll();
 
 //FUNCTION to refresh the DOM 
@@ -45,22 +52,34 @@ const refreshDOM = function() {
 }
 
 
-//--------------------------------------
-//consider the use for this new function
-//--------------------------------------
+//FUNCTION to display one player
 const displayOne = function() {
-    $.ajax({
-        url: `api/player/${id}`,
-        method: 'GET'
-    }).then(function(result) {
-        console.log(result);
-        $('#show').append('<tr><td>' + result[i].id + '</td><td>' + result[i].first_name + '</td><td>' + result[i].last_name + '</td><td>' + result[i].age + '</td><td>' + result[i].jersey_number + '</td><td>' + result[i].soccer_club + '</td><td>' + result[i].position_played + '</td></tr>');
-    });
-}
+        let id = $('#displayPlayer').val();
+        if (id) {
+            $.ajax({
+                url: `api/player/${id}`,
+                method: 'GET'
+            }).then(function(result) {
+                // console.log(result);
+                $('#showOne').append('<li>' + "Player ID: " + result.id + '</li><li>' +
+                    "first name: " + result.first_name + '</li><li>' +
+                    "last name: " + result.last_name + '</li><li>' +
+                    "age: " + result.age + '</li><li>' +
+                    "jersey number: " + result.jersey_number + '</li><li>' +
+                    "soccer club: " + result.soccer_club + '</li><li>' +
+                    "position played: " + result.position_played + '</li>');
+            });
+        } else {
+            $('#showOne').css('display', 'none');
+            UIkit.modal("#displayOneA").hide();
+            // UIkit.modal.alert("Attention!");
+        }
+        $('#displayPlayer').val('');
+    }
+    // calling the function above
+$('#display_One').on('click', displayOne);
 
-
-
-
+$('#refresh').on('click', refreshDOM);
 
 //FUNCTION to add a brand new player
 const addPlayer = function() {
@@ -89,7 +108,7 @@ const addPlayer = function() {
         });
         refreshDOM();
     } else {
-        // UIkit.modal.alert('Please provide an ID');
+        UIkit.modal.alert('Please fill out all fields and hit save');
     }
 }
 
@@ -107,12 +126,10 @@ const deletePlayer = function() {
             // console.log(result);
         });
         refreshDOM();
-
-    } else {
-        // UIkit.modal.alert('Hey man');
     }
 }
 $('#delete').on('click', deletePlayer);
+
 
 //FUNCTION to update a player in the database
 const updatePlayer = function() {

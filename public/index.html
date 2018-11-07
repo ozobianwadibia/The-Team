@@ -16,28 +16,26 @@
 </head>
 
 <body>
-    <div class="uk-container">
-        <div class="uk-grid">
-            <div class="uk-width-1-2 uk-position-center">
-                <h3 class="uk-text-center">Team Coach Access</h3>
-                <form class="uk-form-stacked">
-                    <div class="uk-margin">
-                        <label class="uk-form-label" for="username">Username</label>
-                        <div class="uk-form-controls">
-                            <input class="uk-input" id="username" type="text" placeholder="Enter Username">
-                        </div>
-                    </div>
-                    <div class="uk-margin">
-                        <label class="uk-form-label" for="password">Password</label>
-                        <div class="uk-form-controls">
-                            <input class="uk-input" id="password" type="password" placeholder="Enter Password">
-                        </div>
-                    </div>
-                    <button class="uk-width-1-1 uk-button uk-button-primary" id="teamCoachAccess">Login</button>
-                </form>
+    <!-- DIV CONTAINING THE LOGIN FORM -->
+    <div class="login">
+        <h3 class="uk-text-center uk-background-primary uk-padding-small uk-text-bold">Team Coach Access</h3>
+        <form class="uk-form-stacked">
+            <div class="uk-margin">
+                <label class="uk-form-label" for="username">Username</label>
+                <div class="uk-form-controls">
+                    <input class="uk-input" id="username" type="text" placeholder="Enter Username">
+                </div>
             </div>
-        </div>
+            <div class="uk-margin">
+                <label class="uk-form-label" for="password">Password</label>
+                <div class="uk-form-controls">
+                    <input class="uk-input" id="password" type="password" placeholder="Enter Password">
+                </div>
+            </div>
+        </form>
+        <button class="uk-width-1-1 uk-button uk-button-primary" id="teamCoachAccess">Login</button>
     </div>
+
     <script src="./js/jquery.js"></script>
     <script src="./UIkit/js/uikit.min.js"></script>
     <script src="./UIkit/js/uikit-icons.min.js"></script>
