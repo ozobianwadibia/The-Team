@@ -45,7 +45,7 @@ body {
     font-weight: bolder;
 }
 
-.nav {
+.nav-button {
     background-color: black;
     color: white;
     opacity: 1;
@@ -53,12 +53,17 @@ body {
     z-index: 1000;
 }
 
-.nav:hover {
+.nav-button:hover {
     background-color: black;
     color: white;
     opacity: 1;
     text-align: center;
     z-index: 1000;
+}
+
+.nav-panel {
+    padding-top: 7rem;
+    margin: 0 auto;
 }
 
 .showOne {
