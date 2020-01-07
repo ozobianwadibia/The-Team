@@ -1,10 +1,10 @@
-# teamU
+# The-Team
 
-## Using TeamU
+## Using The-Team
 
 This is a team management app.
 
-The user starts by opening the index page. This contains the login. The correct credentials will grant the user access otherwise an alert or warning will pop up.
+The user starts by opening the index page. This contains the login. The correct credentials (temporarily it is: Admin & Team, respectively) will grant the user access otherwise an alert or warning will pop up.
 
 ![login](./screenshots/login.PNG)
 
