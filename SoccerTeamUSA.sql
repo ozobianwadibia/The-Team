@@ -1,9 +1,1 @@
-
-DROP DATABASE IF EXISTS soccerTeamUSA_db;
-
-CREATE DATABASE soccerTeamUSA_db;
-
-
-
-
-
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'CHANGEME';
