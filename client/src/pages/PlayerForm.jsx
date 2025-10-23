@@ -1,10 +1,32 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../services/api'
-import { Paper, Box, Typography, Grid, TextField, Button } from '@mui/material'
+import { Paper, Box, Typography, Grid, TextField, Button, MenuItem } from '@mui/material'
 
 export default function PlayerForm() {
   const navigate = useNavigate()
+  const CLUBS = [
+    'Los Angeles FC',
+    'Inter Miami CF',
+    'Columbus Crew',
+    'Philadelphia Union',
+    'Seattle Sounders FC',
+    'FC Cincinnati',
+    'Orlando City SC',
+    'Minnesota United FC',
+    'New York City FC',
+    'Nashville SC',
+    'New York Red Bulls',
+    'LA Galaxy',
+    'FC Dallas',
+    'Real Salt Lake',
+    'Portland Timbers',
+    'Chicago Fire FC',
+    'Houston Dynamo FC',
+    'New England Revolution',
+    'Sporting Kansas City',
+    'Austin FC'
+  ]
   const [form, setForm] = useState({
     first_name: '',
     last_name: '',
@@ -38,6 +60,10 @@ export default function PlayerForm() {
       errs.position_played = 'Must be 2 uppercase letters'
     } else if (!['GK','DF','MF','FW'].includes(pos)) {
       errs.position_played = 'Must be one of GK, DF, MF, FW'
+    }
+
+    if (!form.soccer_club || !CLUBS.includes(form.soccer_club)) {
+      errs.soccer_club = 'Select a valid club'
     }
 
     setErrors(errs)
@@ -87,7 +113,21 @@ export default function PlayerForm() {
             <TextField label="Jersey #" name="jersey_number" type="number" value={form.jersey_number} onChange={handleChange} fullWidth required error={!!errors.jersey_number} helperText={errors.jersey_number} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField label="Club" name="soccer_club" value={form.soccer_club} onChange={handleChange} fullWidth />
+            <TextField
+              select
+              label="Club"
+              name="soccer_club"
+              value={form.soccer_club}
+              onChange={handleChange}
+              fullWidth
+              required
+              error={!!errors.soccer_club}
+              helperText={errors.soccer_club}
+            >
+              {CLUBS.map((c) => (
+                <MenuItem key={c} value={c}>{c}</MenuItem>
+              ))}
+            </TextField>
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField label="Position" name="position_played" value={form.position_played} onChange={handleChange} fullWidth required inputProps={{ maxLength: 2 }} error={!!errors.position_played} helperText={errors.position_played || 'GK, DF, MF, FW'} />

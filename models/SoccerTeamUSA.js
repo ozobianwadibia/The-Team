@@ -24,7 +24,32 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         soccer_club: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isIn: [[
+                    'Los Angeles FC',
+                    'Inter Miami CF',
+                    'Columbus Crew',
+                    'Philadelphia Union',
+                    'Seattle Sounders FC',
+                    'FC Cincinnati',
+                    'Orlando City SC',
+                    'Minnesota United FC',
+                    'New York City FC',
+                    'Nashville SC',
+                    'New York Red Bulls',
+                    'LA Galaxy',
+                    'FC Dallas',
+                    'Real Salt Lake',
+                    'Portland Timbers',
+                    'Chicago Fire FC',
+                    'Houston Dynamo FC',
+                    'New England Revolution',
+                    'Sporting Kansas City',
+                    'Austin FC'
+                ]]
+            }
         },
         position_played: {
             type: DataTypes.STRING,
