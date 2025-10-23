@@ -38,6 +38,18 @@ app.use(express.static("public"));
 require("./routes/html-routes.js")(app);
 require("./routes/api-routes.js")(app);
 
+// Global error handler
+app.use((err, req, res, next) => {
+  if (err && err.name === 'SequelizeValidationError') {
+    return res.status(400).json({
+      error: 'Validation failed',
+      details: err.errors.map(e => ({ field: e.path, message: e.message }))
+    });
+  }
+  console.error(err);
+  res.status(500).json({ error: 'Internal Server Error' });
+});
+
 // First sync the database, then seed it, then start the server
 db.sequelize.sync({force: true}).then(function() {
   // After syncing, seed the database
