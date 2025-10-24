@@ -72,7 +72,7 @@ export default function Roster() {
     <Paper sx={{ p: 3 }}>
       <Box sx={{ mb: 2 }}>
         <Typography variant="h4">Roster</Typography>
-        <Typography color="text.secondary">Manage players of the US Soccer Team</Typography>
+        <Typography color="text.secondary">Manage players of selected US Soccer Teams</Typography>
       </Box>
       <div style={{ height: 520, width: '100%' }}>
         <DataGrid rows={rows} columns={columns} loading={loading} disableRowSelectionOnClick />
