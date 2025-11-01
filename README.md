@@ -14,6 +14,7 @@ Team management app for US Soccer players. Backend is Node/Express with Sequeliz
 
 - Node.js 18+ and npm
 - MySQL 8 (or compatible) running locally
+- MySQL may be run using virtualization tools like [Podman](https://podman.io/) or [Docker](https://www.docker.com/)
 
 ## Backend Setup (API)
 
@@ -132,4 +133,3 @@ The-Team/
 ## License
 
 MIT (c) Ozobia Nwadibia
-
